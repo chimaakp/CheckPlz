@@ -31,7 +31,7 @@ public class GameTests {
 		assertEquals("Ycoord must be " + Integer.toString(H), H, Player1.getY());
 		assertEquals("Model must be X", "X", Player1.toString());
 		assertEquals("Score must be 0", 0, Player1.getScore());
-		assertEquals("Time difference must be 0", 0, Player1.getTime());
+		assertTrue("Time difference must be 0 or 1", 0 <= Player1.getTime() && Player1.getTime() < 2);
 	}
 	
 	@Test
