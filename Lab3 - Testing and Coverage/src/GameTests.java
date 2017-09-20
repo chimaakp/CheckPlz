@@ -9,7 +9,7 @@ public class GameTests {
 	Rock Rock1 = new Rock(W, H);
 	
 	@Test
-	public void Rock_Constructor_GetXY_ToString_Test() {
+	public void Rock_Constructor_GetX_GetY_ToString_Test() {
 		assertTrue("xCoord must be between 0 and " + Integer.toString(W), 0 <= Rock1.getX() && Rock1.getX() < W);
 		assertEquals("yCoord must be 0", 0, Rock1.getY());
 		assertEquals("Model must be O", "O", Rock1.toString());
@@ -26,7 +26,7 @@ public class GameTests {
 	long createTime = System.currentTimeMillis();
 	
 	@Test
-	public void Player_Constructor_GetXYScoreTime_ToString_Test() {
+	public void Player_Constructor_GetX_GetY_GetScore_GetTime_ToString_Test() {
 		assertEquals("Xcoord must be " + Integer.toString(W/2), W/2, Player1.getX());
 		assertEquals("Ycoord must be " + Integer.toString(H), H, Player1.getY());
 		assertEquals("Model must be X", "X", Player1.toString());
