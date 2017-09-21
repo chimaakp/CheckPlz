@@ -22,6 +22,13 @@ public class GameTests {
 		
 	}
 	
+	@Test
+	public void Rock_SetX_Test() {
+		int X = Rock1.getX();
+		Rock1.setxCoord(Rock1.getX() + 1);
+		assertEquals("xCoord must be " + Integer.toString(X + 1), X + 1, Rock1.getX());
+	}
+	
 	Player Player1 = new Player(H, W);
 	long createTime = System.currentTimeMillis();
 	
@@ -59,6 +66,15 @@ public class GameTests {
 		assertEquals("Xcoord must be " + Integer.toString((W/2) + 1), (W/2) + 1, Player1.getX());
 		assertEquals("Score must be 1", 1, Player1.getScore());
 		
+	}
+	
+	Board Board1 = new Board(1);
+	
+	@Test
+	
+	public void Board_SetTimer_Test(){
+		Board1.setTimer(1);
+		assertEquals("Timer must be 1", 1, Board1.timer);
 	}
 
 }
