@@ -68,13 +68,46 @@ public class GameTests {
 		
 	}
 	
-	Board Board1 = new Board(1);
+	Board Board1 = new Board(49);
 	
 	@Test
+	public void Board_Constructor_Test() {
+		assertEquals("Difficulty must be 49", 49, Board1.difficulty);
+		assertEquals("Timer must be 150", 150, Board1.timer);
+		assertEquals("Lost must be False", false, Board1.lost);
+		assertEquals("player score must be 0", 0, Board1.player.getScore());
+	}
 	
+	@Test
 	public void Board_SetTimer_Test(){
 		Board1.setTimer(1);
 		assertEquals("Timer must be 1", 1, Board1.timer);
 	}
+	
+	@Test
+	public void Board_TakeTurn_ProcessChar_Test() {
+		Board1.takeTurn('o');
+		assertEquals("Player Score must be 1", 1, Board1.player.getScore());
+		Board1.takeTurn('p');
+		assertEquals("Player Score must be 2", 2, Board1.player.getScore());
+		Board1.takeTurn('k');
+		assertEquals("Player Score must be 3", 3, Board1.player.getScore());
+		Board1.takeTurn('j');
+		assertEquals("Player Score must be 3", 3, Board1.player.getScore());
+		for(int i = 0; i < 14; i++) {
+			Board1.takeTurn('p');
+		}
+	}
 
+	@Test
+	public void Board_TakeTurn_ProcessChar_Test2() {
+		assertEquals(1, 1);
+		for(int i = 0; i < 60; i++) {
+			if (Board1.lost == true){
+				break;
+			}
+			Board1.takeTurn('o');
+		}
+	}
+	
 }
