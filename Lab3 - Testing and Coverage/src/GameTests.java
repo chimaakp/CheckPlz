@@ -94,20 +94,46 @@ public class GameTests {
 		assertEquals("Player Score must be 3", 3, Board1.player.getScore());
 		Board1.takeTurn('j');
 		assertEquals("Player Score must be 3", 3, Board1.player.getScore());
-		for(int i = 0; i < 14; i++) {
+	}
+	
+	@Test
+	public void Board_TakeTurn_ProcessChar_Test2() {
+		for(int i = 0; i < 12; i++) {
+			Board1.takeTurn('o');
+		}
+		assertEquals("Xcoord must be 0", 0 , Board1.player.getX());
+		Board1.player.setXcoord(-1);
+		Board1.takeTurn('p');
+		assertEquals("Xcoord must be 0", 0 , Board1.player.getX());
+	}
+	
+	@Test
+	public void Board_TakeTurn_ProcessChar_Test3() {
+		for(int i = 0; i < 12; i++) {
 			Board1.takeTurn('p');
 		}
+		assertEquals("Xcoord must be 19", 19 , Board1.player.getX());
+		Board1.player.setXcoord(20);
+		Board1.takeTurn('o');
+		assertEquals("Xcoord must be 19", 19 , Board1.player.getX());
 	}
 
 	@Test
-	public void Board_TakeTurn_ProcessChar_Test2() {
-		assertEquals(1, 1);
-		for(int i = 0; i < 60; i++) {
+	public void Board_TakeTurn_ProcessChar_Test4() {
+		for(int i = 0; i < 1000; i++) {
+			Board1.takeTurn('o');
 			if (Board1.lost == true){
 				break;
 			}
-			Board1.takeTurn('o');
 		}
+		assertEquals("Lost must be true", true, Board1.lost);
 	}
+	
+//	@Test
+//	public void Board_TakeTurn_ProcessChar_Test5() {
+//		try:
+//			Thread.sleep(63000);
+//		assertEquals("Lost must be true", true, Board1.lost);
+//	}
 	
 }
