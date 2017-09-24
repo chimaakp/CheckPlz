@@ -68,14 +68,16 @@ public class GameTests {
 		
 	}
 	
-	Board Board1 = new Board(49);
+	Board Board1 = new Board(100);
 	
 	@Test
 	public void Board_Constructor_Test() {
-		assertEquals("Difficulty must be 49", 49, Board1.difficulty);
+		assertEquals("Difficulty must be 100", 100, Board1.difficulty);
 		assertEquals("Timer must be 150", 150, Board1.timer);
 		assertEquals("Lost must be False", false, Board1.lost);
 		assertEquals("player score must be 0", 0, Board1.player.getScore());
+		assertEquals("Rocks must be length 0", 0, Board1.getRocks().size());
+		assertEquals("Screen must be length 20", 20, Board1.getScreen().length);
 	}
 	
 	@Test
@@ -85,11 +87,11 @@ public class GameTests {
 	}
 	
 	@Test
-	public void Board_TakeTurn_ProcessChar_Test() {
+	public void Board_ProcessChar_Test() {
 		Board1.takeTurn('o');
-		assertEquals("Player Score must be 1", 1, Board1.player.getScore());
+		assertEquals("Player Xcoord must be 9", 9, Board1.player.getX());
 		Board1.takeTurn('p');
-		assertEquals("Player Score must be 2", 2, Board1.player.getScore());
+		assertEquals("Player Xcoord must be 10", 10, Board1.player.getX());
 		Board1.takeTurn('k');
 		assertEquals("Player Score must be 3", 3, Board1.player.getScore());
 		Board1.takeTurn('j');
@@ -97,7 +99,35 @@ public class GameTests {
 	}
 	
 	@Test
-	public void Board_TakeTurn_ProcessChar_Test2() {
+	public void Board_TakeTurn_Test() {
+		Board1.takeTurn('o');
+		assertTrue("Rocks length must be > 0", Board1.getRocks().size() > 0);
+		assertEquals("Player Xcoord must be 9", 9, Board1.player.getX());
+		Board1.takeTurn('o');
+		assertEquals("Rock height must be 2", 2, Board1.getRocks().get(0).getY());
+	}
+	
+	@Test
+	public void Board_SpawnRock_Test() {
+		Board1.takeTurn('o');
+		assertTrue("Rocks length must be > 0", Board1.getRocks().size() > 0);
+	}
+	
+	@Test
+	public void Board_RemoveRock_Test() {
+		Board1.takeTurn('o');
+		Board1.player.setXcoord(-1);
+		for(int r = 0; r < (Board1.getRocks().size() - 1); r++){
+			Board1.getRocks().get(r).setyCoord(19);
+		}
+		Board1.takeTurn('k');
+	}
+	
+	
+	
+	
+	@Test
+	public void Board_MoveRight_Test() {
 		for(int i = 0; i < 12; i++) {
 			Board1.takeTurn('o');
 		}
@@ -108,7 +138,7 @@ public class GameTests {
 	}
 	
 	@Test
-	public void Board_TakeTurn_ProcessChar_Test3() {
+	public void Board_MoveLeft_Test() {
 		for(int i = 0; i < 12; i++) {
 			Board1.takeTurn('p');
 		}
@@ -119,7 +149,7 @@ public class GameTests {
 	}
 
 	@Test
-	public void Board_TakeTurn_ProcessChar_Test4() {
+	public void Board_MoveRocks_Test() {
 		for(int i = 0; i < 1000; i++) {
 			Board1.takeTurn('o');
 			if (Board1.lost == true){

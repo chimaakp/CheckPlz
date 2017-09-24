@@ -22,11 +22,11 @@ public class Rock {
 		return this.yCoord;
 	}
 	
-	public void setxCoord(int xCoord) {
+	void setxCoord(int xCoord) {
 		this.xCoord = xCoord;
 	}
 
-	private void setyCoord(int yCoord) {
+	void setyCoord(int yCoord) {
 		this.yCoord = yCoord;
 	}
 	

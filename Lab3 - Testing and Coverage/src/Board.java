@@ -154,6 +154,15 @@ class Board{
 			lost = true;
 		}
 	}
+	
+	ArrayList<Rock> getRocks(){
+		return Rocks;
+	}
+	
+	StringBuilder[] getScreen() {
+		return screen;
+	}
+	
 	void scoring(int score,long time){
 		score = score*(difficulty - 48);
 		if(false){
