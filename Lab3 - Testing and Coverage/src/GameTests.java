@@ -7,12 +7,20 @@ import org.junit.Test;
 public class GameTests {
 	int W = 4;
 	int H = 8;
-	
+	int W2 = 5;
+	int H2 = 9;
 	Rock Rock1 = new Rock(W, H);
-	
+	Rock Rock2 = new Rock(W2, H2);
 	@Test
 	public void Rock_Constructor_GetX_GetY_Test() {
 		assertTrue("xCoord must be between 0 and " + Integer.toString(W), 0 <= Rock1.getX() && Rock1.getX() < W);
+		assertEquals("yCoord must be 0", 0, Rock1.getY());
+		assertEquals("Model must be O", "O", Rock1.toString());
+	}
+	
+	@Test
+	public void Rock_Constructor_GetX_GetY_Test2() {
+		assertTrue("xCoord must be between 0 and " + Integer.toString(W), 0 <= Rock2.getX() && Rock2.getX() < W2);
 		assertEquals("yCoord must be 0", 0, Rock1.getY());
 		assertEquals("Model must be O", "O", Rock1.toString());
 	}
@@ -23,9 +31,21 @@ public class GameTests {
 	}
 	
 	@Test
+	public void Rock_ToString_Test2() {
+		assertEquals("Model must be O", "O", Rock2.toString());
+	}
+	
+	@Test
 	public void Rock_MoveRock_SetY_Test() {
 		Rock1.moveRock();
 		assertEquals("yCoord must be 1", 1, Rock1.getY());
+		
+	}
+	
+	@Test
+	public void Rock_MoveRock_SetY_Test2() {
+		Rock2.moveRock();
+		assertEquals("yCoord must be 1", 1, Rock2.getY());
 		
 	}
 	
@@ -34,6 +54,13 @@ public class GameTests {
 		int X = Rock1.getX();
 		Rock1.setxCoord(Rock1.getX() + 1);
 		assertEquals("xCoord must be " + Integer.toString(X + 1), X + 1, Rock1.getX());
+	}
+	
+	@Test
+	public void Rock_SetX_Test2() {
+		int X = Rock2.getX();
+		Rock2.setxCoord(Rock2.getX() + 1);
+		assertEquals("xCoord must be " + Integer.toString(X + 1), X + 1, Rock2.getX());
 	}
 	
 	Player Player1 = new Player(H, W);
