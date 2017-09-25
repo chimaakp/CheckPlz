@@ -64,6 +64,7 @@ public class GameTests {
 	}
 	
 	Player Player1 = new Player(H, W);
+	Player Player2 = new Player(H2,W2);
 	long createTime = System.currentTimeMillis();
 	
 	@Test
@@ -76,15 +77,24 @@ public class GameTests {
 	}
 	
 	@Test
+	public void Player_Constructor_GetX_GetY_GetScore_GetTime_Test2() {
+		assertEquals("Xcoord must be " + Integer.toString(W2/2), W2/2, Player2.getX());
+		assertEquals("Ycoord must be " + Integer.toString(H2), H2, Player2.getY());
+		assertEquals("Model must be X", "X", Player2.toString());
+		assertEquals("Score must be 0", 0, Player2.getScore());
+		assertTrue("Time difference must be 0 or 1", 0 <= Player2.getTime() && Player2.getTime() < 2);
+	}
+	
+	@Test
 	public void Player_ToString_Test() {
 		assertEquals("Model must be X", "X", Player1.toString());
 	}
 	
 	@Test
-	public void Player_UpScore_Test() {
-		Player1.upScore();
-		assertEquals("Score must be 1", 1, Player1.getScore());
+	public void Player_ToString_Test2() {
+		assertEquals("Model must be X", "X", Player2.toString());
 	}
+	
 	
 	@Test
 	public void Player_SetY_Test() {
@@ -93,9 +103,21 @@ public class GameTests {
 	}
 	
 	@Test
+	public void Player_SetY_Test2() {
+		Player1.setYcoord(3);
+		assertEquals("Ycoord must be 3", 3, Player1.getY());
+	}
+	
+	@Test
 	public void Player_SetX_Test() {
 		Player1.setXcoord(0);
 		assertEquals("Xcoord must be 0", 0, Player1.getX());
+	}
+	
+	@Test
+	public void Player_SetX_Test2() {
+		Player1.setXcoord(3);
+		assertEquals("Xcoord must be 3", 3, Player1.getX());
 	}
 	
 	@Test
@@ -106,10 +128,25 @@ public class GameTests {
 	}
 	
 	@Test
+	public void Player_MoveLeft_Test2() {
+		Player2.moveLeft();
+		assertEquals("Xcoord must be " + Integer.toString((W2/2) - 1), (W2/2) - 1, Player2.getX());
+		assertEquals("Score must be 1", 1, Player2.getScore());
+	}
+	
+	@Test
 	public void Player_MoveRight_Test() {
 		Player1.moveRight();
 		assertEquals("Xcoord must be " + Integer.toString((W/2) + 1), (W/2) + 1, Player1.getX());
 		assertEquals("Score must be 1", 1, Player1.getScore());
+		
+	}
+	
+	@Test
+	public void Player_MoveRight_Test2() {
+		Player2.moveRight();
+		assertEquals("Xcoord must be " + Integer.toString((W2/2) + 1), (W2/2) + 1, Player2.getX());
+		assertEquals("Score must be 1", 1, Player2.getScore());
 		
 	}
 	
