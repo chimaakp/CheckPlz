@@ -8,6 +8,7 @@ class Board{
 	boolean lost;
 	public Player player;
 	public int timer;
+	public double loseTime = 59;
 	private ArrayList<Rock> Rocks;
 	private final int width = 20;
 	private final int height = 20;
@@ -150,9 +151,13 @@ class Board{
 			}
 		moveRocks();
 		processChar(i);
-		if(player.getTime()/1000 > 59){
+		if(player.getTime()/1000 > loseTime){
 			lost = true;
 		}
+	}
+	
+	void setLoseTime(double d) {
+		this.loseTime = d;
 	}
 	
 	ArrayList<Rock> getRocks(){
