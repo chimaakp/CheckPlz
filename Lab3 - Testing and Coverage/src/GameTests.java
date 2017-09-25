@@ -123,25 +123,24 @@ public class GameTests {
 		Board1.takeTurn('k');
 	}
 	
-	
-	
-	
 	@Test
 	public void Board_MoveRight_Test() {
 		for(int i = 0; i < 12; i++) {
 			Board1.takeTurn('o');
 		}
+		assertEquals("Screen[19] must be X followed by spaces", "X                   ", Board1.getScreen()[19].toString());
 		assertEquals("Xcoord must be 0", 0 , Board1.player.getX());
 		Board1.player.setXcoord(-1);
 		Board1.takeTurn('p');
 		assertEquals("Xcoord must be 0", 0 , Board1.player.getX());
 	}
-	
+
 	@Test
 	public void Board_MoveLeft_Test() {
 		for(int i = 0; i < 12; i++) {
 			Board1.takeTurn('p');
 		}
+		assertEquals("Screen[19] must be spaces followed by X", "                   X", Board1.getScreen()[19].toString());
 		assertEquals("Xcoord must be 19", 19 , Board1.player.getX());
 		Board1.player.setXcoord(20);
 		Board1.takeTurn('o');
