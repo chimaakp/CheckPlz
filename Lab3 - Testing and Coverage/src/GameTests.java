@@ -1,8 +1,9 @@
-import static org.junit.Assert.*;
+import org.junit.Test;
 
 import java.util.concurrent.TimeUnit;
 
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class GameTests {
 	int W = 4;
@@ -151,6 +152,7 @@ public class GameTests {
 	}
 	
 	Board Board1 = new Board(100);
+	Board Board2 = new Board(50);
 	
 	@Test
 	public void Board_Constructor_Test() {
@@ -161,11 +163,27 @@ public class GameTests {
 		assertEquals("Rocks must be length 0", 0, Board1.getRocks().size());
 		assertEquals("Screen must be length 20", 20, Board1.getScreen().length);
 	}
+
+	@Test
+	public void Board_Constructor_Test2() {
+		assertEquals("Difficulty must be 50", 50, Board2.difficulty);
+		assertEquals("Timer must be 150", 150, Board2.timer);
+		assertEquals("Lost must be False", false, Board2.lost);
+		assertEquals("player score must be 0", 0, Board2.player.getScore());
+		assertEquals("Rocks must be length 0", 0, Board2.getRocks().size());
+		assertEquals("Screen must be length 20", 20, Board2.getScreen().length);
+	}
 	
 	@Test
 	public void Board_SetTimer_Test(){
 		Board1.setTimer(1);
 		assertEquals("Timer must be 1", 1, Board1.timer);
+	}
+
+	@Test
+	public void Board_SetTimer_Test2(){
+		Board2.setTimer(1);
+		assertEquals("Timer must be 1", 1, Board2.timer);
 	}
 	
 	@Test
@@ -178,6 +196,18 @@ public class GameTests {
 		assertEquals("Player Score must be 3", 3, Board1.player.getScore());
 		Board1.takeTurn('j');
 		assertEquals("Player Score must be 3", 3, Board1.player.getScore());
+	}
+
+	@Test
+	public void Board_ProcessChar_Test2() {
+		Board2.takeTurn('o');
+		assertEquals("Player Xcoord must be 9", 9, Board2.player.getX());
+		Board2.takeTurn('p');
+		assertEquals("Player Xcoord must be 10", 10, Board2.player.getX());
+		Board2.takeTurn('k');
+		assertEquals("Player Score must be 3", 3, Board2.player.getScore());
+		Board2.takeTurn('j');
+		assertEquals("Player Score must be 3", 3, Board2.player.getScore());
 	}
 	
 	@Test
@@ -196,11 +226,34 @@ public class GameTests {
 		Board1.takeTurn('o');
 		assertEquals("Lost must be true", true, Board1.lost);
 	}
+
+	@Test
+	public void Board_TakeTurn_Test2() {
+		Board2.takeTurn('o');
+		assertTrue("Rocks length must be > 0", Board2.getRocks().size() > 0);
+		assertEquals("Player Xcoord must be 9", 9, Board2.player.getX());
+		Board2.takeTurn('o');
+		assertEquals("Rock height must be 2", 2, Board2.getRocks().get(0).getY());
+		Board2.setLoseTime(.5);
+		try {
+			TimeUnit.SECONDS.sleep(1);
+		} catch (InterruptedException e) {
+			System.out.println("Sleep problem");
+		}
+		Board2.takeTurn('o');
+		assertEquals("Lost must be true", true, Board2.lost);
+	}
 	
 	@Test
 	public void Board_SpawnRock_Test() {
 		Board1.takeTurn('o');
 		assertTrue("Rocks length must be > 0", Board1.getRocks().size() > 0);
+	}
+
+	@Test
+	public void Board_SpawnRock_Test2() {
+		Board2.takeTurn('o');
+		assertTrue("Rocks length must be > 0", Board2.getRocks().size() > 0);
 	}
 	
 	@Test
@@ -215,7 +268,20 @@ public class GameTests {
 			assertEquals("All rocks must have yCoord 1", 1, Board1.getRocks().get(r).getY());
 		}
 	}
-	
+
+	@Test
+	public void Board_RemoveRock_Test2() {
+		Board2.takeTurn('o');
+		Board2.player.setXcoord(-1);
+		for(int r = 0; r < (Board2.getRocks().size() - 1); r++){
+			Board2.getRocks().get(r).setyCoord(19);
+		}
+		Board2.takeTurn('k');
+		for(int r = 0; r < (Board2.getRocks().size() - 1); r++){
+			assertEquals("All rocks must have yCoord 1", 1, Board2.getRocks().get(r).getY());
+		}
+	}
+
 	@Test
 	public void Board_MoveLeft_Test() {
 		for(int i = 0; i < 12; i++) {
@@ -226,6 +292,18 @@ public class GameTests {
 		Board1.player.setXcoord(-1);
 		Board1.takeTurn('p');
 		assertEquals("Xcoord must be 0", 0 , Board1.player.getX());
+	}
+
+	@Test
+	public void Board_MoveLeft_Test2() {
+		for(int i = 0; i < 12; i++) {
+			Board2.takeTurn('o');
+		}
+		assertEquals("Screen[19] must be X followed by spaces", "X                   ", Board2.getScreen()[19].toString());
+		assertEquals("Xcoord must be 0", 0 , Board2.player.getX());
+		Board2.player.setXcoord(-1);
+		Board2.takeTurn('p');
+		assertEquals("Xcoord must be 0", 0 , Board2.player.getX());
 	}
 
 	@Test
@@ -241,6 +319,18 @@ public class GameTests {
 	}
 
 	@Test
+	public void Board_MoveRight_Test2() {
+		for(int i = 0; i < 12; i++) {
+			Board2.takeTurn('p');
+		}
+		assertEquals("Screen[19] must be spaces followed by X", "                   X", Board2.getScreen()[19].toString());
+		assertEquals("Xcoord must be 19", 19 , Board2.player.getX());
+		Board2.player.setXcoord(20);
+		Board2.takeTurn('o');
+		assertEquals("Xcoord must be 19", 19 , Board2.player.getX());
+	}
+
+	@Test
 	public void Board_MoveRocks_Test() {
 		Board1.takeTurn('o');
 		String rocks = Board1.getScreen()[1].toString();
@@ -253,6 +343,21 @@ public class GameTests {
 			}
 		}
 		assertEquals("Lost must be true", true, Board1.lost);
+	}
+
+	@Test
+	public void Board_MoveRocks_Test2() {
+		Board2.takeTurn('o');
+		String rocks = Board2.getScreen()[1].toString();
+		Board2.takeTurn('p');
+		assertEquals("Screen[2] must equal previous screen[1]", rocks, Board2.getScreen()[2].toString());
+		for(int i = 0; i < 1000; i++) {
+			Board2.takeTurn('o');
+			if (Board2.lost == true){
+				break;
+			}
+		}
+		assertEquals("Lost must be true", true, Board2.lost);
 	}
 	
 //	@Test

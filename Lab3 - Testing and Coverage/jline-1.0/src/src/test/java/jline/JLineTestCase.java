@@ -6,7 +6,9 @@
  */
 package jline;
 
-import junit.framework.*;
+//import junit.framework.*;
+
+import junit.framework.TestCase;
 
 import java.io.*;
 
